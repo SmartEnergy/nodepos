@@ -1,0 +1,30 @@
+# AUTHOR: andree <andreek@tzi.de>
+#
+# Http server based on nodejs for user positions in a room
+#
+# Updated at 04/26/11
+#
+# Install
+#
+#	Install nodejs and npm: https://github.com/joyent/node/wiki/Installation
+#
+#	Install required node libs:
+#		
+#		npm install
+#
+#	This creates a 'node_modules' folder with all required libs.
+#
+#	See 'packages.json' dependencies
+#
+#	Build modules:
+#
+#	  node-waf configure build
+#
+# Tests
+# 	Just run:
+#
+# 		npm test
+#
+#	Start server: 
+#
+#		node server.js conf.json
