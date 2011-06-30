@@ -2,9 +2,9 @@ var stores = require('../data/users'),
     util = require('util');
 
 function configureApp(app) {
-  
-  var userStore = app.users = new stores.Users();
 
+  var userStore = app.users = new stores.Users();
+  
   // response content type
   var contentType = 'application/json';
 

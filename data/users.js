@@ -6,27 +6,37 @@ var util = require('util'),
 function Users () {
 
   Store.call(this, 'users', 'id');
-
-  this.on('new', function(key, user){
-  });
-
-  this.on('update', function(key, user){
-  });
-
-  this.on('removed', function(key){
-  });
+  
 }
 // inherit Store
 util.inherits(Users, Store);
 exports.Users = Users;
 
 /**
+ * Create new timeout for a user
+ */
+Users.prototype.createTimeout = function(user) {
+  var that = this;
+  var id = user.id;
+
+  // housekeeping
+  if(user.timeoutId) clearInterval(user.timeoutId);
+
+  // new interval
+  var timeoutId = setInterval(function(that, userId) {
+    Users.prototype.remove.call(that, userId);
+  }, 3000, that, id);
+
+  user.timeoutId = timeoutId;
+  return;
+};
+
+/**
  * check if user is in time
  */
 Users.prototype.isInTime = function(user) {
-
   if(this.isValid(user)) {
-    var current_timeout = Number(new Date())-5000;
+    var current_timeout = Number(new Date())-3000;
 
     if((current_timeout/1000) <= user.time) {
       return true;
@@ -42,22 +52,26 @@ Users.prototype.isInTime = function(user) {
 Users.prototype.push    = function(new_user, callback) {
 
   if(this.isInTime(new_user)) {
+    // TODO ADD TIMEOUT;'
+    Users.prototype.createTimeout.call(this, new_user);
     Store.prototype.push.call(this, new_user, callback);
   } else {
     callback(true, 'new', new_user);
   }
-
 }
 
 /**
  *  remove only if user out of time
  */
 Users.prototype.remove  = function(key, callback) {
-
-  if(!this.isInTime(this.items[key])) {
-    Store.prototype.remove.call(this, key, callback);
+  if(key) {
+    if(!this.isInTime(this.items[key])) {
+      // remove timeout
+      if(this.items[key] != undefined) clearInterval(this.items[key].timeoutId);
+      Store.prototype.remove.call(this, key, callback);
+    }
   } else {
-    callback(null);
+    if(callback) callback(null);
   }
 
 }
@@ -66,8 +80,6 @@ Users.prototype.remove  = function(key, callback) {
  * small validation
  */
 Users.prototype.isValid = function(user) {
-
-  var pos = user.position;
 
   if( 'undefined' === typeof user || 'undefined' === typeof user.position || 'undefined' === typeof user.time) {
 

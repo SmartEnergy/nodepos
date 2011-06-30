@@ -4,9 +4,6 @@ var express = require('express'),
     util = require('util');
 
 // TODO: /regions /regions/update/ID /regions/new
-// TODO: / ('Tobis guuuuuuuuui..')
-// TODO: /status ('simple status page')
-
 // create simple http server
 var app = module.exports = express.createServer();
 

@@ -18,7 +18,7 @@ var user_for_rm = new Object({
 
 var user1 = new Object({
 	id		: 	'user1',
-	time		: 	(Number(new Date()) / 1000 )+10, 
+	time		: 	(Number(new Date()) / 1000 )+5, 
   position	: 	new Object({
 					x	:	 0,
 					y	:	 0,
@@ -27,25 +27,26 @@ var user1 = new Object({
 });
 var user_ = new Object({
 	id		:	 'user_',
-	time		: 	 (Number(new Date())/1000)+20, 
+	time		: 	 (Number(new Date())/1000)+5, 
 	position	:	 new Object({
 					x	:	 0,
 					y	:	 0,
 					z	:	 0
 			  	})
 });
-users.push(user1);
 
 /**
  * User Store test
  */
 module.exports = {
   'Remove user out of time': function() {
-	  user1.time = user1.time-1000000;
-
-	  users.remove(user1.id, function(err){
-	    assert.equal(users.length, 0);
-    });  
+    users.push(user1, function(err, action, item) {
+      user1.time = user1.time-1000000;
+      users.remove(user1.id, function(err){
+        assert.equal(users.length, 0);
+      });  
+    
+    });
   },
   'Not remove user if in time': function() {
     users.push(user_, function(err){
@@ -90,7 +91,7 @@ module.exports = {
   },
   'Not add user out of time': function() {
     var user = {
-      id		:	'user_1',
+      id		:	'user_2',
       time		:	(Number(new Date())/1000)-20,
       position	:	new Object({
               x	:	0,
@@ -104,5 +105,35 @@ module.exports = {
       assert.equal(user, item);
       assert.equal(2, users.length);
     });
-  }  
+  },
+  'User should be removed after 3 seconds without update':  function() {
+    
+    var testuser = {
+      id		:	'test',
+      time		:	(Number(new Date())/1000),
+      position	:	new Object({
+              x	:	0,
+              y	:	0,
+              z	:	0
+      })
+    }; 
+
+    users.push(testuser, function(err, action, item) {
+      assert.equal('new', action);
+      assert.equal(testuser, item);
+
+      // after three seconds
+      setTimeout(function() {
+
+        users.get('test', function(err, user) {
+          assert.isUndefined(user);
+
+          // exit. Stop timeout check..
+          process.exit();
+        });
+        clearTimeout(this);
+      }, 3000);
+
+    });
+  },
 };

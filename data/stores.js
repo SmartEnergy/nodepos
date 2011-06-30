@@ -110,7 +110,12 @@ Store.prototype.toJson  = function(callback) {
       size        : self.length
     });
     result[self.name] = results;
-    result = JSON.stringify(result);
+    result = JSON.stringify(result, function(key, value) {
+      if(key === "timeoutId") {
+        return undefined;
+      }
+      return value;
+    });
     callback(err, result); 
 
   });
