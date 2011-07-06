@@ -1,6 +1,7 @@
 var express = require('express'),
     kinect = require('./controllers/kinect'),
     user = require('./controllers/user'),
+    region = require('./controllers/region'),
     util = require('util');
 
 // create server
@@ -13,6 +14,7 @@ app.use(express.methodOverride());
 // boot controllers 
 kinect.configureApp(app);
 user.configureApp(app);
+region.configureApp(app);
 
 if(!module.parent) {
   // listen on port 8000
