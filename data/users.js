@@ -20,12 +20,12 @@ Users.prototype.createTimeout = function(user) {
   var id = user.id;
 
   // housekeeping
-  if(user.timeoutId) clearInterval(user.timeoutId);
+  if(user.timeoutId) clearTimeout(user.timeoutId);
 
   // new interval
-  var timeoutId = setInterval(function(that, userId) {
+  var timeoutId = setTimeout(function(that, userId) {
     Users.prototype.remove.call(that, userId);
-  }, 3000, that, id);
+  }, 3100, that, id);
 
   user.timeoutId = timeoutId;
   return;
@@ -52,7 +52,6 @@ Users.prototype.isInTime = function(user) {
 Users.prototype.push    = function(new_user, callback) {
 
   if(this.isInTime(new_user)) {
-    // TODO ADD TIMEOUT;'
     Users.prototype.createTimeout.call(this, new_user);
     Store.prototype.push.call(this, new_user, callback);
   } else {
@@ -81,16 +80,11 @@ Users.prototype.remove  = function(key, callback) {
  */
 Users.prototype.isValid = function(user) {
 
-  if( 'undefined' === typeof user || 'undefined' === typeof user.position || 'undefined' === typeof user.time) {
-
+  if( undefined === user || undefined === user.gesture || undefined === user.id || undefined === user.position || undefined === user.time) {
     return false;
-
-  } else if ('undefined' === typeof user || 'undefined' === typeof user.position.x || 'undefined' === typeof user.position.z) {
-
-    util.log("[USER][WARNING] COULD NOT VALIDATE USER " + user.id);
+  } else if (undefined === user.position.x || undefined === user.position.z) {
     return false;
-
   }
-
   return true;
+
 }

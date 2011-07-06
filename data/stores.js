@@ -4,7 +4,6 @@
  * @author andree andreek@tzi.de
  */
 var events  = require('events'),
-    async   = require('async'),
     util    = require('util');
 
 /**
@@ -32,7 +31,11 @@ exports.Store = Store;
  * Return item
  */
 Store.prototype.get           = function(key, callback) {
-  callback(null, this.items[key]);
+  if(callback) { 
+    callback(null, this.items[key]);
+  } else {
+    return this.items[key];
+  }
 }
 
 /**

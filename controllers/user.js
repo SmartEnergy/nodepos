@@ -1,4 +1,5 @@
 var stores = require('../data/users'),
+    requireJson = require('../helpers').requireJson;
     util = require('util');
 
 function configureApp(app) {
@@ -12,21 +13,6 @@ function configureApp(app) {
   app.get('/users', index);
 
   app.post('/users/new', requireJson, create);
-
-  /**
-   * check if request is application/json
-   */
-  function requireJson(req, res, next) {
-    if(req.is('*/json')) {
-      next();
-    } else {
-      var msg = JSON.stringify({ success: false, msg: 'Use application/json' });
-      res.writeHead(406, { "Content-Type": contentType,
-                           "Content-Length": msg.length });
-      res.write(msg);
-      res.end();
-    }
-  }
 
   /**
    * Return all users

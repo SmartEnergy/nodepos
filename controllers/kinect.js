@@ -1,10 +1,19 @@
 var stores = require('../data/stores'),
+    requireJson = require('../helpers').requireJson;
     util = require('util');
 
 function configureApp(app) {
   
   var kinectStore = app.kinects = new stores.Store('kinects', 'id');
 
+  // validate kinect 
+  kinectStore.isValid = function(kinect) {
+    if( undefined === kinect || undefined === kinect.x || undefined === kinect.y || undefined === kinect.angle) {
+      return false;
+    } 
+    return true;
+  };
+  
   // response content type
   var contentType = 'application/json';
 
@@ -14,21 +23,6 @@ function configureApp(app) {
   app.post('/kinects/new', requireJson, create);
 
   app.get('/kinects/:id/delete', requireJson, del);
-
-  /**
-   * check if request is application/json
-   */
-  function requireJson(req, res, next) {
-    if(req.is('*/json')) {
-      next();
-    } else {
-      var msg = JSON.stringify({ success: false, msg: 'Use application/json' });
-      res.writeHead(406, { "Content-Type": contentType,
-                           "Content-Length": msg.length });
-      res.write(msg);
-      res.end();
-    }
-  }
 
   /**
    * Return all connected kinects
@@ -53,12 +47,11 @@ function configureApp(app) {
 
     var kinect = req.body;
 
-    // TODO validate kinect object
-    if(kinect.angle === 0) {
+    if(kinectStore.isValid(kinect)) {
       kinectStore.push(kinect);
       msg = JSON.stringify({ success: true });
     } else {
-      msg = JSON.stringify({ success: false });
+      msg = JSON.stringify({success: false});
       status = 400;
     }
     

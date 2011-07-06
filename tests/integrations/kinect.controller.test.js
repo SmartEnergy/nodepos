@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    app = require('../app');
+    app = require('../../app');
 
 /**
  * TEST Kinect Controller
@@ -95,7 +95,7 @@ module.exports = {
       {
         url: '/kinects/new',
         method: 'POST',
-        data: '{ "id": "0X0000", "x": 0, "y": 0}',
+        data: '{ "id": "0X0000", "y": 0}',
         headers: {
           'Content-Type': 'application/json'
         } 

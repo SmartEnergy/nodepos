@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    app = require('../app');
+    app = require('../../app');
 
 /**
  * TEST User Controller
@@ -41,7 +41,8 @@ module.exports = {
     var calls = 0;
     var user = {
       id		: 	'user1',
-      time		: 	(Number(new Date()) / 1000 )+10, 
+      time		: 	(Number(new Date()) / 1000 )+10,
+      gesture : null, 
       position	: 	new Object({
               x	:	 0,
               y	:	 0,

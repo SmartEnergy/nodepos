@@ -3,21 +3,16 @@ var express = require('express'),
     user = require('./controllers/user'),
     util = require('util');
 
-// TODO: /regions /regions/update/ID /regions/new
-// create simple http server
+// create server
 var app = module.exports = express.createServer();
 
 // server configuration
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 
-// boot kinect controller 
+// boot controllers 
 kinect.configureApp(app);
-
-// boot user controller
 user.configureApp(app);
-
-// boot region controller
 
 if(!module.parent) {
   // listen on port 8000

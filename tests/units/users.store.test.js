@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    Users = require('../data/users').Users;
+    Users = require('../../data/users').Users;
 
 /**
  * Some fixtures..
@@ -9,6 +9,7 @@ var users = new Users();
 var user_for_rm = new Object({
 	id		: 	'user_for_rm',
 	time		: 	(Number(new Date())/1000)-10,
+  gesture : null, 
 	position	: 	new Object({
 					x	:	 0,
 					y	:	 0,
@@ -19,6 +20,7 @@ var user_for_rm = new Object({
 var user1 = new Object({
 	id		: 	'user1',
 	time		: 	(Number(new Date()) / 1000 )+5, 
+  gesture : null, 
   position	: 	new Object({
 					x	:	 0,
 					y	:	 0,
@@ -28,6 +30,7 @@ var user1 = new Object({
 var user_ = new Object({
 	id		:	 'user_',
 	time		: 	 (Number(new Date())/1000)+5, 
+  gesture : null, 
 	position	:	 new Object({
 					x	:	 0,
 					y	:	 0,
@@ -77,6 +80,7 @@ module.exports = {
     var user = {
       id		:	'user_1',
       time		:	Number(new Date())/1000,
+      gesture : null, 
       position	:	new Object({
               x	:	0,
               y	:	0,
@@ -93,6 +97,7 @@ module.exports = {
     var user = {
       id		:	'user_2',
       time		:	(Number(new Date())/1000)-20,
+      gesture : null, 
       position	:	new Object({
               x	:	0,
               y	:	0,
@@ -111,6 +116,7 @@ module.exports = {
     var testuser = {
       id		:	'test',
       time		:	(Number(new Date())/1000),
+      gesture : null, 
       position	:	new Object({
               x	:	0,
               y	:	0,
@@ -132,7 +138,7 @@ module.exports = {
           process.exit();
         });
         clearTimeout(this);
-      }, 3000);
+      }, 3100);
 
     });
   },
