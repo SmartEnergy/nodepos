@@ -1,0 +1,23 @@
+# AUTHOR: andree <andreek@tzi.de>
+#
+# INSTALL
+#
+#   Install nodejs and npm:
+#
+#     https://github.com/joyent/node/wiki/Installation 
+#   
+#   Install libs:
+#
+#     npm install express
+#     npm install expresso
+#     npm install socket.io
+#     npm install async
+#
+# USAGE
+#
+#   node app.js
+#
+# TESTS
+#
+# ./node_modules/expresso/bin/expresso tests/units/models/* tests/units/* tests/integrations/* 
+#

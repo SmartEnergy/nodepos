@@ -70,3 +70,16 @@ RegionStore.prototype.push = function(region, callback) {
   }
 
 };
+
+/**
+ * check all regions
+ */
+RegionStore.prototype.checkUser = function(user, callback) {
+
+  for(var key in this.items) {
+    var region = this.items[key];
+    region.checking(user)
+  }
+  if(callback) callback(false);
+
+};
