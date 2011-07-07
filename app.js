@@ -21,6 +21,22 @@ kinect.configureApp(app);
 user.configureApp(app);
 region.configureApp(app);
 
+/**
+ * On new/update user check regions
+ * and commands.
+ */
+app.users.on('new', checkRegions);
+app.users.on('update', checkRegions);
+
+function checkRegions(key, user) {
+
+  app.regions.checkUser(user, execCommands);
+
+  function execCommands(err) {
+    if(err === false) app.commands.execAll(user);
+  }
+};
+
 if(!module.parent) {
   // boot websocket
   socket.configureSocket(app);
@@ -29,4 +45,4 @@ if(!module.parent) {
   app.listen(8000);
   console.log('Express server listening on port %d, environment: %s'
               , app.address().port, app.settings.env);
-} 
+}
