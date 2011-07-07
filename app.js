@@ -2,6 +2,8 @@ var express = require('express'),
     kinect = require('./controllers/kinect'),
     user = require('./controllers/user'),
     region = require('./controllers/region'),
+    CommandStore = require('./data/commands').CommandStore,
+    socket = require('./socket'),
     util = require('util');
 
 // create server
@@ -11,12 +13,18 @@ var app = module.exports = express.createServer();
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 
+// command store
+var commandStore = app.commands = new CommandStore();
+
 // boot controllers 
 kinect.configureApp(app);
 user.configureApp(app);
 region.configureApp(app);
 
 if(!module.parent) {
+  // boot websocket
+  socket.configureSocket(app);
+
   // listen on port 8000
   app.listen(8000);
   console.log('Express server listening on port %d, environment: %s'
