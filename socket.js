@@ -43,18 +43,21 @@ module.exports.configureSocket = function(app) {
 function defineGetMessages(app, socket) {
 
   socket.on('getRegions', function(fn) {
-    var regions = app.regions.toArray();
-    fn(regions);
+    app.regions.toArray(function(err, regions) {
+      fn(regions);
+    });
   });
   
   socket.on('getKinects', function(fn) {
-    var kinects = app.kinects.toArray();
-    fn(kinects);
+    app.kinects.toArray(function(err, kinects) {
+      fn(kinects);
+    });
   });
   
   socket.on('getCommands', function(fn) {
-    var commands = app.commands.toArray();
-    fn(commands);
+    app.commands.toArray(function(err, commands) {
+      fn(commands);
+    });
   });
 
 };
