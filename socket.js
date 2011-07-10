@@ -1,13 +1,10 @@
 module.exports.configureSocket = function(app) {
 
   var io = require('socket.io').listen(app);
-    
-  defineUserMsgs(app, io.sockets);
-  defineRegionMsgs(app, io.sockets);
-  defineKinectMsgs(app, io.sockets);
-  defineCommandMsgs(app, io.sockets);
 
   io.sockets.on('connection', function(socket) {
+  
+    defineUserMsgs(app, io.sockets);
 
     defineGetMessages(app, socket);
    
@@ -15,23 +12,40 @@ module.exports.configureSocket = function(app) {
      * messages from client
      */ 
     socket.on('newKinect', function(kinect) {
-      app.kinects.push(kinect); 
+      
+      if(app.kinects.isValid(kinect)){
+        app.kinects.push(kinect);      
+        socket.broadcast.emit('newKinect', kinect);  
+      }
+
     });
 
     socket.on('newRegion', function(region) {
-      app.regions.push(region); 
+      if(app.regions.isValid(region)){
+        app.regions.push(region);      
+        socket.broadcast.emit('newRegion', region);  
+      }
     });
     
     socket.on('removeRegion', function(key) {
-      app.regions.remove(key); 
+      if(key){
+        app.regions.remove(key); 
+        socket.broadcast.emit('removedRegion', key);   
+      }
     });
 
     socket.on('newCommand', function(command) {
-      app.commands.push(command); 
+      if(app.commands.isValid(command)){
+        app.commands.push(command);      
+        socket.broadcast.emit('newCommand', command);  
+      }
     });
 
     socket.on('removeCommand', function(key) {
-      app.commands.remove(key);
+      if(key){
+        app.commands.remove(key);
+        socket.broadcast.emit('removedCommand', key);   
+      }
     });
 
   });
