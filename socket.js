@@ -11,11 +11,11 @@ module.exports.configureSocket = function(app) {
     /**
      * messages from client
      */ 
-    socket.on('newKinect', function(kinect) {
+    socket.on('updateKinect', function(kinect) {
       
       if(app.kinects.isValid(kinect)){
         app.kinects.push(kinect);      
-        socket.broadcast.emit('newKinect', kinect);  
+        socket.broadcast.emit('updateKinect', kinect);  
       }
 
     });
