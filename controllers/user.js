@@ -35,16 +35,27 @@ function configureApp(app) {
     var msg = null;
     var status = 200;
 
-    var user = req.body;
+    var users = req.body.users;
+    var isValid = true;
 
-    if(userStore.isValid(user)) {
-      userStore.push(user);
+    for (var i = 0; i < users.length; i++) {
+      var user = users[i];
+      if(userStore.isValid(user) === false) {
+        msg = JSON.stringify({ success: false });
+        isValid = false;
+        status = 400;
+      }
+    };
+
+    if(isValid === true) {
+
       msg = JSON.stringify({ success: true });
-    } else {
-      msg = JSON.stringify({ success: false });
-      status = 400;
+
+      users.forEach(function(val, index, array) {
+        userStore.push(val);
+      });
     }
-    
+
     res.writeHead(status, { "Content-Type": contentType
                      , "Content-Length": msg.length});
     res.write(msg);

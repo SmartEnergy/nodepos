@@ -55,7 +55,7 @@ module.exports = {
       {
         url: '/users/new',
         method: 'POST',
-        data: JSON.stringify(user),
+        data: JSON.stringify({ users: [user] }),
         headers: {
           'Content-Type': 'application/json'
         } 
@@ -103,7 +103,7 @@ module.exports = {
       {
         url: '/users/new',
         method: 'POST',
-        data: '{"id":"foo"}',
+        data: JSON.stringify({ users: [ { id: 'foo' }] }),
         headers: {
           'Content-Type': 'application/json'
         } 
