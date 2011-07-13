@@ -1,6 +1,6 @@
 /**
- * Command executes a interaction
- * with baall or digitalStrom, if all conditions are complied.
+ * Command executes actions if all conditions
+ * are complied.
  */
 function Command(name, conditions, actions, regionStore) {
 

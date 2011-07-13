@@ -102,7 +102,7 @@ module.exports = {
       },
       {
         status: 400,
-        body: '{"success":false}',
+        body: '{"success":false,"msg":"This is not a valid kinect"}',
         headers: {
           'Content-Type': 'application/json'
         } 
