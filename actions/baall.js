@@ -24,7 +24,13 @@ var devices = [
   'lowerRightDoor',
   'bathroomLight',
   'bathroomDoor',
-  'corridorLight', 
+  'corridorLight',
+  'kitchenette',
+  'kitchenLeftCupboard',
+  'kitchenRightCupboard',
+  'bedroomRightBedHead',
+  'bedroomRightBedFoot',
+  'bathroomWashBasin', 
 ]
 
 /**
@@ -40,8 +46,12 @@ var Baall = function (actionStore) {
     var baallHandler = function(value) {
       if(value === 'on') {
         ballrequest(this.name, '1');  
-      } else {
+      } 
+      else if(value === 'off') {
         ballrequest(this.name, '0');  
+      }
+      else {
+        ballrequest(this.name, value);  
       }
     };
 
