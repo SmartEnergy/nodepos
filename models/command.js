@@ -49,10 +49,11 @@ Command.prototype.isComplied = function(user) {
 /**
  * execute this command
  */
-Command.prototype.exec = function(user, callback) {
+Command.prototype.exec = function(user, store, callback) {
   if(this.isComplied(user) === true) {
-    // TODO for loop actions and execute them
-    console.log('DUMMY ACTION - not implemented yet');
+    this.actions.forEach(function(val, index, array) {
+        store[val.name].play(user, val.type, val.values);
+    });
     if(callback) callback(true);
   } else {
     if(callback) callback(false);

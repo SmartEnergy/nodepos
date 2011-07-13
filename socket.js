@@ -49,10 +49,11 @@ module.exports.configureSocket = function(app) {
 
     socket.on('newCommand', function(command) {
 
-      if(app.commands.isValid(command)){
+      // TODO Validate
+      //if(app.commands.isValid(command)){
         app.commands.push(command);      
         socket.broadcast.emit('newCommand', command);  
-      }
+      //}
 
     });
 

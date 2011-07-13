@@ -9,6 +9,7 @@ function CommandStore () {
 
   Store.call(this, 'commands', 'name');
   
+  this.actions = new Store('actions', 'name');
 }
 // inherit Store
 util.inherits(CommandStore, Store);
@@ -28,6 +29,6 @@ CommandStore.prototype.push = function(command, callback) {
  */
 CommandStore.prototype.execAll = function(user) {
   for(var key in this.items) {
-    this.items[key].exec(user);
+    this.items[key].exec(user, this.actions);
   }
 };

@@ -2,7 +2,7 @@
 #
 # INSTALL
 #
-#   Install nodejs and npm:
+#   Install nodejs (v0.4.9) and npm:
 #
 #     https://github.com/joyent/node/wiki/Installation 
 #   
@@ -12,6 +12,10 @@
 #     npm install expresso
 #     npm install socket.io
 #     npm install async
+#   
+#   Build
+#     
+#     node-waf configure build
 #
 # USAGE
 #
@@ -19,5 +23,5 @@
 #
 # TESTS
 #
-# ./node_modules/expresso/bin/expresso tests/units/models/* tests/units/* tests/integrations/* 
+#   ./node_modules/expresso/bin/expresso tests/units/models/* tests/units/* tests/integrations/* 
 #

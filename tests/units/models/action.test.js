@@ -28,6 +28,6 @@ module.exports = {
         gesture: 'click' 
       }
       
-      action.play(test_user);
+      action.play(test_user, 'digitalStrom', []);
   }
 };

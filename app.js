@@ -2,7 +2,10 @@ var express = require('express'),
     kinect = require('./controllers/kinect'),
     user = require('./controllers/user'),
     region = require('./controllers/region'),
+    Store = require('./data/stores').Store,
     CommandStore = require('./data/commands').CommandStore,
+    Baall = require('./actions/baall').Baall,
+    dsscurl = new require('./actions/dsscurl.js'),
     socket = require('./socket'),
     util = require('util');
 
@@ -15,11 +18,20 @@ app.use(express.methodOverride());
 
 // command store
 var commandStore = app.commands = new CommandStore();
+var actionStore = app.actions = app.commands.actions;
 
 // boot controllers 
 kinect.configureApp(app);
 user.configureApp(app);
 region.configureApp(app);
+
+// load dss actions
+var dss =new dsscurl.Connection; 
+dss.readActions(app.actions);
+
+// load Baall actions
+Baall(app.actions);
+
 
 /**
  * On new/update user check regions
