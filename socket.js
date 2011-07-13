@@ -5,6 +5,7 @@ module.exports.configureSocket = function(app) {
   io.sockets.on('connection', function(socket) {
   
     defineUserMsgs(app, io.sockets);
+    defineKinectMsgs(app, io.sockets);
 
     defineGetMessages(app, socket);
    
@@ -110,3 +111,18 @@ function defineUserMsgs(app, sockets) {
   });
 
 };
+
+/**
+ * store events
+ */
+function defineKinectMsgs (app, sockets) {
+  
+  app.kinects.addListener('new', function(key, kinect) {
+    sockets.emit('newKinect', kinect);  
+  });
+  
+  app.kinects.addListener('removed', function(key) {
+    sockets.emit('removedKinect', key);  
+  });
+
+}

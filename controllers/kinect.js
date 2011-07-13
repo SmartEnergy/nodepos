@@ -51,7 +51,7 @@ function configureApp(app) {
       kinectStore.push(kinect);
       msg = JSON.stringify({ success: true });
     } else {
-      msg = JSON.stringify({success: false});
+      msg = JSON.stringify({success: false, msg: 'This is not a valid kinect' });
       status = 400;
     }
     
