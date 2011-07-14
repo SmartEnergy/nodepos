@@ -1,9 +1,9 @@
 var Action = require('./models/action').Action;
 
+var ugly = false;
 module.exports.configureSocket = function(app) {
 
   var io = require('socket.io').listen(app);
-
   io.sockets.on('connection', function(socket) {
   
     defineUserMsgs(app, io.sockets);
@@ -102,19 +102,20 @@ function defineGetMessages(app, socket) {
  * all socket events for users
  */
 function defineUserMsgs(app, sockets) {
-
-  app.users.addListener('new', function(key, user) {
-    sockets.emit('newUser', { id: user.id, position: user.position, time: user.time, gesture: user.gesture });  
-  });
-  
-  app.users.addListener('update', function(key, user) {
-    sockets.emit('updateUser', { id: user.id, position: user.position, time: user.time, gesture: user.gesture });  
-  });
-  
-  app.users.addListener('removed', function(key) {
-    sockets.emit('removedUser', key);  
-  });
-
+  if(ugly === false) {
+    app.users.addListener('new', function(key, user) {
+      sockets.emit('newUser', { id: user.id, position: user.position, time: user.time, gesture: user.gesture });  
+    });
+    
+    app.users.addListener('update', function(key, user) {
+      sockets.emit('updateUser', { id: user.id, position: user.position, time: user.time, gesture: user.gesture });  
+    });
+    
+    app.users.addListener('removed', function(key) {
+      sockets.emit('removedUser', key);  
+    });
+    ugly === true;
+  }
 };
 
 /**
