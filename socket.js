@@ -1,3 +1,5 @@
+var Action = require('./models/action').Action;
+
 module.exports.configureSocket = function(app) {
 
   var io = require('socket.io').listen(app);
@@ -6,6 +8,8 @@ module.exports.configureSocket = function(app) {
   
     defineUserMsgs(app, io.sockets);
     defineKinectMsgs(app, io.sockets);
+
+    definePushUiMsgs(app, io.sockets);
 
     defineGetMessages(app, socket);
    
@@ -126,4 +130,13 @@ function defineKinectMsgs (app, sockets) {
     sockets.emit('removedKinect', key);  
   });
 
+}
+
+/**
+ * Push ui to client
+ */
+function definePushUiMsgs(app, sockets) {
+  var pushUi = new Action('pushUi', function(value) {
+    sockets.emit('pushUi', value);  
+  });
 }

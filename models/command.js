@@ -52,7 +52,7 @@ Command.prototype.isComplied = function(user) {
 Command.prototype.exec = function(user, store, callback) {
   if(this.isComplied(user) === true) {
     this.actions.forEach(function(val, index, array) {
-        store[val.name].play(user, val.type, val.values);
+        store[val.name].play(user, val.category, val.values);
     });
     if(callback) callback(true);
   } else {

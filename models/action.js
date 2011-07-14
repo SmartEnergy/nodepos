@@ -34,6 +34,8 @@ Action.prototype.play = function(user, type, values) {
     }
   } else if( type === 'digitalStrom') {
     this.handler(null);
+  } else if ( type === 'Other') {
+    this.handler(values[0]);
   }
 }
 exports.Action = Action;
