@@ -1,15 +1,14 @@
 var Action = require('./models/action').Action;
 
-var ugly = false;
 module.exports.configureSocket = function(app) {
 
   var io = require('socket.io').listen(app);
   io.sockets.on('connection', function(socket) {
   
-    defineUserMsgs(app, io.sockets);
-    defineKinectMsgs(app, io.sockets);
+    defineUserMsgs(app, socket);
+    defineKinectMsgs(app, socket);
 
-    definePushUiMsgs(app, io.sockets);
+    definePushUiMsgs(app, socket);
 
     defineGetMessages(app, socket);
    
@@ -101,34 +100,31 @@ function defineGetMessages(app, socket) {
 /**
  * all socket events for users
  */
-function defineUserMsgs(app, sockets) {
-  if(ugly === false) {
+function defineUserMsgs(app, socket) {
     app.users.addListener('new', function(key, user) {
-      sockets.emit('newUser', { id: user.id, position: user.position, time: user.time, gesture: user.gesture });  
+      socket.emit('newUser', { id: user.id, position: user.position, time: user.time, gesture: user.gesture });  
     });
     
     app.users.addListener('update', function(key, user) {
-      sockets.emit('updateUser', { id: user.id, position: user.position, time: user.time, gesture: user.gesture });  
+      socket.emit('updateUser', { id: user.id, position: user.position, time: user.time, gesture: user.gesture });  
     });
     
     app.users.addListener('removed', function(key) {
-      sockets.emit('removedUser', key);  
+      socket.emit('removedUser', key);  
     });
-    ugly === true;
-  }
 };
 
 /**
  * store events
  */
-function defineKinectMsgs (app, sockets) {
+function defineKinectMsgs (app, socket) {
   
   app.kinects.addListener('new', function(key, kinect) {
-    sockets.emit('newKinect', kinect);  
+    socket.emit('newKinect', kinect);  
   });
   
   app.kinects.addListener('removed', function(key) {
-    sockets.emit('removedKinect', key);  
+    socket.emit('removedKinect', key);  
   });
 
 }
@@ -136,9 +132,9 @@ function defineKinectMsgs (app, sockets) {
 /**
  * Push ui to client
  */
-function definePushUiMsgs(app, sockets) {
+function definePushUiMsgs(app, socket) {
   var pushUi = new Action('pushUi', function(value) {
-    sockets.emit('pushUi', value);  
+    socket.emit('pushUi', value);  
   });
 
   app.actions.push(pushUi);
