@@ -28,7 +28,7 @@ Command.prototype.isComplied = function(user) {
           return false;
         }
         else if(condition.empty && condition.empty === true ) {
-          if(region.length != 0) return false;
+          if(region.users.length != 0) return false;
         }
         break;
       case 'gesture':
