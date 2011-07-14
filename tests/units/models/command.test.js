@@ -12,7 +12,7 @@ var poly1 = new Polygon('testregion', [{xMM: 0, yMM: 0},{xMM: 100, yMM: 0}, {xMM
 var store = new RegionStore();
 store.push(poly1);
 var com1 = new Command('test', [{ name: 'userIn', type: 'region', values: ['testregion'] }], [], store);
-var com2 = new Command('test', [{ name: 'userIn', type: 'region', values: ['testregion'] }, { name: 'click', type: 'gesture'}], [], store);
+var com2 = new Command('test', [{ name: 'userIn', type: 'region', empty: false, values: ['testregion'] }, { name: 'click', type: 'gesture'}], [], store);
 
 var user1 = {  
   id: 'testuser1', 
