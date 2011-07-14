@@ -1,14 +1,29 @@
+var util = require('util');
 /**
  * Command executes actions if all conditions
  * are complied.
  */
-function Command(name, conditions, actions, regionStore) {
+function Command(name, conditions, actions, regionStore, actionStore) {
 
+  var self = this;
+  
   this.store = regionStore;
+  this.actionStore = actionStore;
   this.name = name;
   this.conditions = conditions;
   this.actions = actions;
 
+  conditions.forEach(function(condition, index, array) {
+    switch(condition.type) {
+      case 'region':
+        var region = self.store.get(condition.values[0]);
+        if(condition.name === 'userIn') region.addListener('userIn', self.exec);
+        if(condition.name === 'userOut') region.addListener('userOut', self.exec);
+        break;
+      default:
+        break;
+    }
+  });
 };
 exports.Command = Command;
 
@@ -16,7 +31,7 @@ exports.Command = Command;
  * Check if all conditions are complied
  */
 Command.prototype.isComplied = function(user) {
-
+  
   for (var i = 0; i < this.conditions.length; i++) {
     var condition = this.conditions[i];
     switch(condition.type) {
@@ -52,10 +67,12 @@ Command.prototype.isComplied = function(user) {
 /**
  * execute this command
  */
-Command.prototype.exec = function(user, store, callback) {
-  if(this.isComplied(user) === true) {
-    this.actions.forEach(function(val, index, array) {
-        store[val.name].play(user, val.category, val.values);
+Command.prototype.exec = function(user, callback) {
+  var self = this;
+
+  if(Command.prototype.isComplied.call(this, user) === true) {
+    self.actions.forEach(function(val, index, array) {
+        self.actionStore[val.name].play(user, val.category, val.values);
     });
     if(callback) callback(true);
   } else {

@@ -10,9 +10,10 @@ var assert = require('assert'),
 var poly1 = new Polygon('testregion', [{xMM: 0, yMM: 0},{xMM: 100, yMM: 0}, {xMM: 100, yMM: 100},{xMM: 0, yMM: 100}]);
 
 var store = new RegionStore();
+var actionStore = new Store('actions', 'name');
 store.push(poly1);
-var com1 = new Command('test', [{ name: 'userIn', type: 'region', values: ['testregion'] }], [], store);
-var com2 = new Command('test', [{ name: 'userIn', type: 'region', empty: false, values: ['testregion'] }, { name: 'click', type: 'gesture'}], [], store);
+var com1 = new Command('test', [{ name: 'userAlreadyIn', type: 'region', values: ['testregion'] }], [], store, actionStore);
+var com2 = new Command('test', [{ name: 'userAlreadyIn', type: 'region', empty: false, values: ['testregion'] }, { name: 'click', type: 'gesture'}], [], store, actionStore);
 
 var user1 = {  
   id: 'testuser1', 
@@ -40,7 +41,6 @@ bla.checking(user1);
 bla.checking(user2);
 bla.checking(user3);
 
-var actionStore = new Store('actions', 'name');
 
 module.exports = {
   'com1 should complied': function() {
@@ -56,22 +56,22 @@ module.exports = {
       assert.equal(true, isComplied);
   }, 
   'com1 should execute':  function() {
-    com1.exec(user1, actionStore, function(result) {
+    com1.exec(user1, function(result) {
       assert.equal(true, result);
     });
   },
   'com2 should not execute': function() {
-    com2.exec(user1, actionStore, function(result) {
+    com2.exec(user1, function(result) {
       assert.equal(true, result);
     });
   },
   'com2 should execute': function() {
-    com2.exec(user2, actionStore, function(result) {
+    com2.exec(user2, function(result) {
       assert.equal(true, result);
     });
   },
   'com2 should not execute': function() {
-    com2.exec(user3, actionStore, function(result) {
+    com2.exec(user3, function(result) {
       assert.equal(false, result);
     });
   }

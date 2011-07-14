@@ -55,7 +55,7 @@ module.exports.configureSocket = function(app) {
 
       // TODO Validate
       //if(app.commands.isValid(command)){
-        app.commands.push(command);      
+        app.commands.push(command, app.regions, app.actions);      
         socket.broadcast.emit('newCommand', command);  
       //}
 
@@ -139,4 +139,6 @@ function definePushUiMsgs(app, sockets) {
   var pushUi = new Action('pushUi', function(value) {
     sockets.emit('pushUi', value);  
   });
+
+  app.actions.push(pushUi);
 }

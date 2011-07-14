@@ -18,10 +18,13 @@ exports.CommandStore = CommandStore;
 /**
  * push new commands
  */
-CommandStore.prototype.push = function(command, callback) {
+CommandStore.prototype.push = function(command, regions, actions, callback) {
   // TODO validate command
-  var new_command = new Command(command.name, command.conditions, command.actions);
+  var new_command = new Command(command.name, command.conditions, command.actions, 
+                                regions, actions);
+  
   Store.prototype.push.call(this, new_command, callback);
+  
 };
 
 /**
