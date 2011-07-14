@@ -26,17 +26,15 @@ Action.prototype = Object.create(events.EventEmitter.prototype, {
 Action.prototype.play = function(user, type, values) {
 
   this.emit('play', user);
-
+  
   // execute action
   if(type === 'Baall') {
     if(values.length === 1) {
       this.handler(values[0]); 
     }
   } else if( type === 'digitalStrom') {
-    console.log('digitalStrom');
     this.handler(null);
   } else if ( type === 'Other') {
-    console.log('OTHER');
     this.handler(values[0]);
   }
 }

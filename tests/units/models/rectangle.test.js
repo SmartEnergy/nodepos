@@ -26,14 +26,15 @@ module.exports = {
     assert.equal(true, isUserIn);
   },
   'rec1 checking should be true': function() {
-    rec1.checking(user, function(result) {
-      assert.equal(true, result);
-    });
     
     // should emit event userIn 
-    rec1.on('userIn', function(new_user) {
+    rec1.addListener('userIn', function(new_user) {
       assert.equal(user, new_user);
       rec1.removeAllListeners();
+    });
+    
+    rec1.checking(user, function(result) {
+      assert.equal(true, result);
     });
   },
   'rec1 isUserAlready in should be true': function() {

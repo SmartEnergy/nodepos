@@ -2,7 +2,9 @@ var assert = require('assert'),
     Polygon = require('../../../models/regions').Polygon,
     RegionStore = require('../../../data/regions').RegionStore,
     Store = require('../../../data/stores').Store,
-    Command = require('../../../models/command').Command;
+    Command = require('../../../models/command').Command,
+    Action = require('../../../models/action').Action,
+    util  = require('util');
 
 /**
  * Some fixtures.
@@ -12,8 +14,11 @@ var poly1 = new Polygon('testregion', [{xMM: 0, yMM: 0},{xMM: 100, yMM: 0}, {xMM
 var store = new RegionStore();
 var actionStore = new Store('actions', 'name');
 store.push(poly1);
-var com1 = new Command('test', [{ name: 'userAlreadyIn', type: 'region', values: ['testregion'] }], [], store, actionStore);
-var com2 = new Command('test', [{ name: 'userAlreadyIn', type: 'region', empty: false, values: ['testregion'] }, { name: 'click', type: 'gesture'}], [], store, actionStore);
+
+
+var com1 = new Command('test', [{ name: 'userAlreadyIn', category: 'Regions', type: 'region', values: ['testregion'] }], [], store, actionStore);
+var com2 = new Command('test2', [{ name: 'userAlreadyIn', category: 'Regions', type: 'region', empty: false, values: ['testregion'] }, { name: 'click', category: 'Gestures', type: 'gesture'}], [], store, actionStore);
+
 
 var user1 = {  
   id: 'testuser1', 
@@ -36,6 +41,13 @@ var user3 = {
   gesture: 'click' 
 };
  
+var user4 = {  
+  id: 'testuser4', 
+  time: Number(new Date)/1000, 
+  position: { x: 10, y: 10, z: 0}, 
+  gesture: 'click' 
+};
+
 var bla = store.get(poly1.name);
 bla.checking(user1);
 bla.checking(user2);
@@ -74,5 +86,32 @@ module.exports = {
     com2.exec(user3, function(result) {
       assert.equal(false, result);
     });
-  }
+  },
+  'com3 should execute on userIn event': function() {
+  
+    var action = new Action('testaction', function(value) { 
+      assert.equal(1,1) 
+    });
+    
+    actionStore.push(action);
+    var com3 = new Command('test3', [{ name: 'userIn', category: 'Regions', type: 'region', empty: false, values: ['testregion']}], [{ name: 'testaction', category: 'Baall', empty: false, values: ['on']}], store, actionStore);
+    
+    com3.store.items['testregion'].checking(user4);
+
+    
+  },  
+  'com3 should execute on userOut event': function() {
+    user4.position.x = -1; 
+    user4.position.y = -1; 
+    var action = new Action('testaction_out', function(value) { 
+      assert.equal(1,1) 
+    });
+    
+    actionStore.push(action);
+    var com3 = new Command('test3', [{ name: 'userOut', category: 'Regions', type: 'region', empty: false, values: ['testregion']}], [{ name: 'testaction_out', category: 'Baall', empty: false, values: ['off']}], store, actionStore);
+    
+    com3.store.items['testregion'].checking(user4);
+
+    
+  }  
 }

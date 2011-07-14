@@ -137,7 +137,6 @@ function defineKinectMsgs (app, sockets) {
  */
 function definePushUiMsgs(app, sockets) {
   var pushUi = new Action('pushUi', function(value) {
-    console.log('PUUUUUUUUUUUUUUUUUUUUUUUSH UUUI');
     sockets.emit('pushUi', value);  
   });
 

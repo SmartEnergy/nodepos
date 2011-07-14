@@ -20,20 +20,13 @@ var events      = require('events'),
  */
 function Region(name, type) {
 
+  events.EventEmitter.call(this);
   
-  if(name === undefined || type === undefined) {
-
-    return null;
-
-  } else {
-    
-    events.EventEmitter.call(this);
     
     this.name	= name;
     this.type = type; 
     this.users = [];
   
-  }
 
 };
 exports.Region = Region;

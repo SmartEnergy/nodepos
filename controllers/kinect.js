@@ -48,11 +48,10 @@ function configureApp(app) {
     var kinects = req.body.kinects;
     var isValid = true;
 
-
     for (var i = 0; i < kinects.length; i++) {
       var kinect = kinects[i];
       if(kinectStore.isValid(kinect) === false) {
-        msg = JSON.stringify({ success: false });
+        msg = JSON.stringify({ success: false, msg: "This is not a valid kinect" });
         isValid = false;
         status = 400;
       }
