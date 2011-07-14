@@ -26,12 +26,11 @@ user.configureApp(app);
 region.configureApp(app);
 
 // load dss actions
-var dss =new dsscurl.Connection; 
+var dss = new dsscurl.Connection; 
 dss.readActions(app.actions);
 
 // load Baall actions
 Baall(app.actions);
-
 
 /**
  * On new/update user check regions

@@ -55,7 +55,7 @@ Users.prototype.push    = function(new_user, callback) {
     Users.prototype.createTimeout.call(this, new_user);
     Store.prototype.push.call(this, new_user, callback);
   } else {
-    callback(true, 'new', new_user);
+    if(callback) callback(true, 'new', new_user);
   }
 }
 

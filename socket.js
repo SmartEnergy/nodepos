@@ -100,11 +100,11 @@ function defineGetMessages(app, socket) {
 function defineUserMsgs(app, sockets) {
 
   app.users.addListener('new', function(key, user) {
-    sockets.emit('newUser', user);  
+    sockets.emit('newUser', { id: user.id, position: user.position, time: user.time, gesture: user.gesture });  
   });
   
   app.users.addListener('update', function(key, user) {
-    sockets.emit('updateUser', user);  
+    sockets.emit('updateUser', { id: user.id, position: user.position, time: user.time, gesture: user.gesture });  
   });
   
   app.users.addListener('removed', function(key) {

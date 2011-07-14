@@ -32,7 +32,6 @@ Action.prototype.play = function(user, type, values) {
     if(values.length === 1) {
       this.handler(values[0]); 
     }
-    // TODO if values.length === 2 | baall actions like bed, kitchen, mirror
   } else if( type === 'digitalStrom') {
     this.handler(null);
   }

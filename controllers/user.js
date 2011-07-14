@@ -34,7 +34,7 @@ function configureApp(app) {
   function create(req, res) {
     var msg = null;
     var status = 200;
-
+    
     var users = req.body.users;
     var isValid = true;
 
