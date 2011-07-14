@@ -45,14 +45,26 @@ function configureApp(app) {
     var msg = null;
     var status = 200;
 
-    var kinect = req.body;
+    var kinects = req.body.kinects;
+    var isValid = true;
 
-    if(kinectStore.isValid(kinect)) {
-      kinectStore.push(kinect);
+
+    for (var i = 0; i < kinects.length; i++) {
+      var kinect = kinects[i];
+      if(kinectStore.isValid(kinect) === false) {
+        msg = JSON.stringify({ success: false });
+        isValid = false;
+        status = 400;
+      }
+    };
+
+    if(isValid === true) {
+
       msg = JSON.stringify({ success: true });
-    } else {
-      msg = JSON.stringify({success: false, msg: 'This is not a valid kinect' });
-      status = 400;
+
+      kinects.forEach(function(val, index, array) {
+        kinectStore.push(val);
+      });
     }
     
     res.writeHead(status, { "Content-Type": contentType

@@ -29,22 +29,32 @@ Connection.prototype.readActions = function(store, callback) {
 
   var self = this;
 
-  var scenes = [];
+  var scenes = ['3504175fe000000000004c06', '3504175fe000000000004bca', '3504175fe000000000005932'];
 
   for(var i in scenes) {
     var scene = scenes[i];
     
-    var action = new Action('dss_'+scene.number, dssHandler);
+    var action = new Action('dss_on_'+i, dssOnHandler);
+    var action1 = new Action('dss_off_'+i, dssOffHandler);
     
-    var dssHandler = function(value) {
+    var dssOnHandler = function(value) {
       this.login(function(result) {
         if(result === true) {
-          self.callScene(scene.zoneId, scene.number);
+          self.turnOn(scene);
+        }
+      });
+    };
+
+    var dssOffHandler = function(value) {
+      this.login(function(result) {
+        if(result === true) {
+          self.turnOff(scene);
         }
       });
     };
 
     store.push(action);
+    store.push(action1);
   }
 
 }
@@ -55,6 +65,26 @@ Connection.prototype.readActions = function(store, callback) {
 Connection.prototype.callScene = function(zoneId, sceneNumber, callback) {
   var url = HOST+'/json/zone/callScene?id=' 
             +zoneId+'&sceneNumber='+sceneNumber;
+  var exec = JSON.parse(this.request(url, cookie, USERNAME, PASSWORD));
+  if(exec.ok === true && callback) callback(exec);
+}
+
+/**
+ * turn on device
+ */ 
+Connection.prototype.turnOn = function(dsid) {
+  var url = HOST+'/json/device/turnOn?dsid='+dsid;
+ 
+  var exec = JSON.parse(this.request(url, cookie, USERNAME, PASSWORD));
+  if(exec.ok === true && callback) callback(exec);
+}
+
+/**
+ * turn off device
+ */ 
+Connection.prototype.turnOff = function(dsid) {
+  var url = HOST+'/json/device/turnOff?dsid='+dsid;
+ 
   var exec = JSON.parse(this.request(url, cookie, USERNAME, PASSWORD));
   if(exec.ok === true && callback) callback(exec);
 }

@@ -17,7 +17,11 @@ function Command(name, conditions, actions, regionStore, actionStore) {
     switch(condition.type) {
       case 'region':
         var region = self.store.get(condition.values[0]);
-        if(condition.name === 'userIn') region.addListener('userIn', self.exec);
+        console.log(util.inspect(region));
+        if(condition.name === 'userIn') region.addListener('userIn', function(user) {
+          console.log('USSSSSSSSSSEEEEEEEEEEEEEEERIIIIIIIIIIIIIIIIIN');
+          //self.exec(user);
+        });
         if(condition.name === 'userOut') region.addListener('userOut', self.exec);
         break;
       default:
@@ -31,22 +35,25 @@ exports.Command = Command;
  * Check if all conditions are complied
  */
 Command.prototype.isComplied = function(user) {
-  
   for (var i = 0; i < this.conditions.length; i++) {
     var condition = this.conditions[i];
-    switch(condition.type) {
-      case 'region':
-        // TODO Support more regions at once
-        var region = this.store.get(condition.values[0]);
-        var idx = region.users.indexOf(user.id);
-        if(idx === -1) {
+    console.log('Condition category ' + condition.category);
+    switch(condition.category) {
+      case 'Regions':
+        if(condition.name === 'userAlreadyIn') {
+          var region = this.store.get(condition.values[0]);
+          var idx = region.users.indexOf(user.id);
+          if(idx === -1) {
+            return false;
+          }
+          else if(condition.empty && condition.empty === true ) {
+            if(region.users.length != 0) return false;
+          }
+        } else {
           return false;
         }
-        else if(condition.empty && condition.empty === true ) {
-          if(region.users.length != 0) return false;
-        }
         break;
-      case 'gesture':
+      case 'Gestures':
         if(user.gesture != condition.name) { 
           return false;
         }
@@ -69,10 +76,9 @@ Command.prototype.isComplied = function(user) {
  */
 Command.prototype.exec = function(user, callback) {
   var self = this;
-
   if(Command.prototype.isComplied.call(this, user) === true) {
     self.actions.forEach(function(val, index, array) {
-        self.actionStore[val.name].play(user, val.category, val.values);
+        self.actionStore.items[val.name].play(user, val.category, val.values);
     });
     if(callback) callback(true);
   } else {

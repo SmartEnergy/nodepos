@@ -105,15 +105,12 @@ class Dss : public EventEmitter {
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
 
         // Digest authentication
-        //curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_DIGEST);     
+        curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_DIGEST);     
 		
       	// convert username|password
-        v8::String::Utf8Value username(args[2]->ToString());
-        v8::String::Utf8Value password(args[3]->ToString());
-	 
-        curl_easy_setopt(curl, CURLOPT_USERNAME, ((char *) ToCString(username)));
-        curl_easy_setopt(curl, CURLOPT_PASSWORD, ((char *) ToCString(password)));
-        
+        curl_easy_setopt(curl, CURLOPT_USERNAME, "json");
+        curl_easy_setopt(curl, CURLOPT_PASSWORD, "c4a30c1db46b568eb87f3631360a74fe");       
+ 
         // set cookie
         curl_easy_setopt(curl, CURLOPT_COOKIE, cookie);
 

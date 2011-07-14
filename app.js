@@ -28,7 +28,7 @@ region.configureApp(app);
 // load dss actions
 var dss = new dsscurl.Connection; 
 dss.readActions(app.actions);
-
+console.log('ACTIONS ' + util.inspect(app.actions.items));
 // load Baall actions
 Baall(app.actions);
 

@@ -90,10 +90,11 @@ Region.prototype.checking = function(user, callback) {
 
   } else {
 
+    var self = this;
     Region.prototype.userAlreadyInRegion.call(this, user, function(result) {
       if(result === true) {
-
-        Region.prototype.removeUser.call(this, user);
+        
+        Region.prototype.removeUser.call(self, user.id);
         
       } else {
         self.emit('userNotIn', user);
@@ -113,9 +114,9 @@ Region.prototype.removeUser = function(userId, callback) {
   if(user != undefined) {
       this.users.splice(idx, 1);
       this.emit('userOut', user);
-      callback(true);
+      if(callback) callback(true);
   } else {
-    callback(false);
+     if(callback) callback(false);
   }
 };
 

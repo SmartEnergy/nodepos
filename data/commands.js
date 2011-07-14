@@ -32,6 +32,6 @@ CommandStore.prototype.push = function(command, regions, actions, callback) {
  */
 CommandStore.prototype.execAll = function(user) {
   for(var key in this.items) {
-    this.items[key].exec(user, this.actions);
+    this.items[key].exec(user);
   }
 };

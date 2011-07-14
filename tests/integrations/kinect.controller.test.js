@@ -46,7 +46,7 @@ module.exports = {
       {
         url: '/kinects/new',
         method: 'POST',
-        data: '{ "id": "0X0000", "x": 0, "y": 0, "angle": 0 }',
+        data: JSON.stringify({ kinects: [ { id: "0X0000", x: 0, y: 0, angle: 0 } ] }),
         headers: {
           'Content-Type': 'application/json'
         } 
@@ -95,7 +95,7 @@ module.exports = {
       {
         url: '/kinects/new',
         method: 'POST',
-        data: '{ "id": "0X0000", "y": 0}',
+        data: JSON.stringify({ kinects: [ { id: "0X0000", angle: 0 } ] }),
         headers: {
           'Content-Type': 'application/json'
         } 
