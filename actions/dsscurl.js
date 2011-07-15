@@ -29,32 +29,32 @@ Connection.prototype.readActions = function(store, callback) {
 
   var self = this;
 
-  var scenes = ['3504175fe000000000004c06', '3504175fe000000000004bca', '3504175fe000000000005932'];
+  var scenes = [{name:'licht1', id: '3504175fe000000000004c06'},
+                {name:'licht2', id: '3504175fe000000000004bca'}, 
+                {name:'licht3', id: '3504175fe000000000005932'}];
 
-  for(var i in scenes) {
+  for (var i = 0; i < scenes.length; i++) {
     var scene = scenes[i];
     
-    var action = new Action('dss_on_'+i, dssOnHandler);
-    var action1 = new Action('dss_off_'+i, dssOffHandler);
-    
     var dssOnHandler = function(value) {
+      
       this.login(function(result) {
-        if(result === true) {
-          self.turnOn(scene);
-        }
-      });
-    };
+          if(result === true) {
+            if(value === 'on') {
+              self.turnOn(scene);
+            }
+            else {
+              self.turnOff(scene);
+            }
+          }
 
-    var dssOffHandler = function(value) {
-      this.login(function(result) {
-        if(result === true) {
-          self.turnOff(scene);
-        }
-      });
+        });
     };
+    
+    var action = new Action(scene.name, dssOnHandler);
+    
 
     store.push(action);
-    store.push(action1);
   }
 
 }

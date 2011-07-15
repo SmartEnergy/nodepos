@@ -33,7 +33,7 @@ Action.prototype.play = function(user, type, values) {
       this.handler(values[0]); 
     }
   } else if( type === 'digitalStrom') {
-    this.handler(null);
+    this.handler(values[0]);
   } else if ( type === 'Other') {
     this.handler(values[0]);
   }

@@ -5,7 +5,7 @@ var express = require('express'),
     Store = require('./data/stores').Store,
     CommandStore = require('./data/commands').CommandStore,
     Baall = require('./actions/baall').Baall,
-    dsscurl = new require('./actions/dsscurl.js'),
+    dsscurl = require('./actions/dsscurl.js'),
     socket = require('./socket'),
     util = require('util');
 

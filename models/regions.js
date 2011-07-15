@@ -19,7 +19,6 @@ var events      = require('events'),
  * @method isUserIn 
  */
 function Region(name, type) {
-
   events.EventEmitter.call(this);
   
     
@@ -41,18 +40,11 @@ Region.prototype = Object.create(events.EventEmitter.prototype, {
 });
 
 /**
- * This method is overwritten by polygon and rectangle.
- */
-Region.prototype.isUserIn = function(user) {
-  return false;
-};
-
-/**
  * Verify if user already in this region
  */
 Region.prototype.userAlreadyInRegion = function(user, callback) {
   var idx = this.users.indexOf(user.id);
-  if(typeof this.users[idx] != 'undefined') {
+  if(idx != -1) {
     callback(true);
   }
   else {
@@ -67,7 +59,7 @@ Region.prototype.checking = function(user, callback) {
 	
 	var self = this;
   
-  if(self.isUserIn(user)) {
+  if(self.isUserIn(user) === true) {
 
     Region.prototype.userAlreadyInRegion.call(this, user, function(result) {
 
@@ -82,11 +74,10 @@ Region.prototype.checking = function(user, callback) {
     });
 
   } else {
-
     var self = this;
     Region.prototype.userAlreadyInRegion.call(this, user, function(result) {
       if(result === true) {
-        
+        self.emit('userOut', user);
         Region.prototype.removeUser.call(self, user.id);
         
       } else {
@@ -106,7 +97,6 @@ Region.prototype.removeUser = function(userId, callback) {
   var user = this.users[idx];
   if(user != undefined) {
       this.users.splice(idx, 1);
-      this.emit('userOut', user);
       if(callback) callback(true);
   } else {
      if(callback) callback(false);

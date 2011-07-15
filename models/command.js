@@ -18,6 +18,7 @@ function Command(name, conditions, actions, regionStore, actionStore) {
     switch(condition.category) {
       case 'Regions':
         var region = regionStore.get(condition.values[0]);
+        
         if(condition.name === 'userIn') {
           region.addListener('userIn', function(user) {
             
