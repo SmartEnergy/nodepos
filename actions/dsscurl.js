@@ -40,7 +40,7 @@ Connection.prototype.readActions = function(store, callback) {
       
       this.login(function(result) {
           if(result === true) {
-            if(value === 'on') {
+            if(value === 'On') {
               self.turnOn(scene);
             }
             else {

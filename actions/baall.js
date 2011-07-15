@@ -44,10 +44,10 @@ var Baall = function (actionStore) {
     var action = new Action(device, baallHandler);
     
     var baallHandler = function(value) {
-      if(value === 'on') {
+      if(value === 'On') {
         ballrequest(this.name, '1');  
       } 
-      else if(value === 'off') {
+      else if(value === 'Off') {
         ballrequest(this.name, '0');  
       }
       else {
