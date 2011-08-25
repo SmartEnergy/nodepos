@@ -72,6 +72,26 @@ RegionStore.prototype.push = function(region, callback) {
 };
 
 /**
+ * update region attributes
+ */
+RegionStore.prototype.update = function(key, region, cb) {
+  
+  var new_region = region;
+  var self = this;
+
+  RegionStore.prototype.get.call(this, key, function(err, item) {
+    
+    item.update(new_region);
+  
+    self.emit('update', item.key, item);
+    
+    if(cb) cb(null, 'update', item);
+
+  });
+
+}
+
+/**
  * check all regions
  */
 RegionStore.prototype.checkUser = function(user, callback) {

@@ -140,6 +140,18 @@ Rectangle.prototype.isUserIn = function(user) {
 };
 
 /**
+ * update attributes of region
+ */
+Rectangle.prototype.update = function(region) {
+
+  this.posX = region.posX;
+  this.posY = region.posY;
+  this.width = region.width;
+  this.height = region.height;
+
+};
+
+/**
  * Polygon
  */
 function Polygon(name, points) {
@@ -161,4 +173,13 @@ Polygon.prototype.isUserIn = function(user) {
     && (user.position.x < (this.points[j].xMM - this.points[i].xMM) * (user.position.y - this.points[i].yMM) / (this.points[j].yMM - this.points[i].yMM) + this.points[i].xMM)
     && (c = !c);
   return c; 
+};
+
+/**
+ * update attributes of region
+ */
+Polygon.prototype.update = function(region) {
+
+  this.points = region.points;
+
 };

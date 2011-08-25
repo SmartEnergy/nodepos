@@ -5,7 +5,6 @@ var express = require('express'),
     Store = require('./data/stores').Store,
     CommandStore = require('./data/commands').CommandStore,
     Baall = require('./actions/baall').Baall,
-    dsscurl = require('./actions/dsscurl.js'),
     socket = require('./socket'),
     util = require('util');
 
@@ -24,10 +23,6 @@ var actionStore = app.actions = app.commands.actions;
 kinect.configureApp(app);
 user.configureApp(app);
 region.configureApp(app);
-
-// load dss actions
-var dss = new dsscurl.Connection; 
-dss.readActions(app.actions);
 
 // load Baall actions
 Baall(app.actions);
