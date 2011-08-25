@@ -19,23 +19,23 @@ function Command(name, conditions, actions, regionStore, actionStore) {
       case 'Regions':
         var region = regionStore.get(condition.values[0]);
         
-        if(condition.name === 'userIn') {
-          region.addListener('userIn', function(user) {
-            
-            actions.forEach(function(val, index, array) {
-                actionStore.items[val.name].play(user, val.category, val.values);
-            });
+        function addExecListener (user) {
+          actions.forEach(function(val, index, array) {
+            actionStore.items[val.name].play(user, val.category, val.values);
           });
+
         }
         
-        if(condition.name === 'userOut') {
-          region.addListener('userOut', function(user) {
-            
-            actions.forEach(function(val, index, array) {
-                actionStore.items[val.name].play(user, val.category, val.values);
-            });
-          });
+        if(condition.name === 'userIn') {
+          region.addListener('userIn', addExecListener);
+          condition.regionCb = addExecListener;
         }
+        else if(condition.name === 'userOut') {
+          region.addListener('userOut', addExecListener);
+          condition.regionCb = addExecListener;
+        }
+
+        
         break;
       default:
         break;
@@ -47,6 +47,26 @@ exports.Command = Command;
 Command.prototype.bindRegionEvent = function(regionStore) {
 
 }
+
+/**
+ * Remove listeners of regions
+ */
+Command.prototype.removeRegionEvents = function() {
+  for (var i = 0; i < conditions.length; i++) {
+    var condition = conditions[i];
+    switch(condition.category) {
+      case 'Regions':
+        
+        var region = regionStore.get(condition.values[0]);
+
+        region.removeListener(condition.name, condition.regionCb);
+        break;
+      default:
+        break;
+    }
+  }
+};
+
 /**
  * Check if all conditions are complied
  */

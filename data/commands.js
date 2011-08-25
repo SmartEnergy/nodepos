@@ -28,6 +28,27 @@ CommandStore.prototype.push = function(command, regions, actions, callback) {
 };
 
 /**
+ * update commands
+ */
+CommandStore.prototype.update = function(key, command, callback) {
+  CommandStore.prototype.get.call(this, key, function(err, item) {
+    item.removeRegionEvents();
+    Store.prototype.update.call(this, key, command, callback);
+  });
+};
+
+/**
+ * remove commands
+ */
+CommandStore.prototype.update = function(key, callback) {
+  CommandStore.prototype.get.call(this, key, function(err, item) {
+    item.removeRegionEvents();
+    Store.prototype.remove.call(this, key, callback);
+  });
+};
+
+
+/**
  * execute all commands
  */
 CommandStore.prototype.execAll = function(user) {
