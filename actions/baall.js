@@ -1,6 +1,6 @@
 var http    = require('http'),
     util    = require('util'),
-    Action  = require('../models/action').Action;
+    BaallAction  = require('../models/action').BaallAction;
 
 // all turn on/off baall devices
 var devices = [
@@ -41,35 +41,9 @@ var Baall = function (actionStore) {
   for(var i in devices) {
     var device = devices[i];
     
-    var action = new Action(device, baallHandler);
+    var action = new BaallAction(device);
     
-    var baallHandler = function(value) {
-      if(value === 'On') {
-        ballrequest(this.name, '1');  
-      } 
-      else if(value === 'Off') {
-        ballrequest(this.name, '0');  
-      }
-      else {
-        ballrequest(this.name, value);  
-      }
-    };
-
     actionStore.push(action);
   }
 }
 exports.Baall = Baall;
-
-function ballrequest(name, value) {
-  // execute update..
-  var client = http.createClient(80, 'baall-server.informatik.uni-bremen.de');
-
-  var headers = {
-    'Host': 'baall-server.informatik.uni-bremen.de',
-    'Content-Type': 'text/plain',
-    'Content-Length': 0
-  };
-  var req = client.request('GET', '/update.php?value='+value+'&name='+name, headers);
-  req.write('');
-  req.end();
-} 
