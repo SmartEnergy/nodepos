@@ -137,8 +137,13 @@ exports.ExBaallAction = ExBaallAction;
  * play method
  */
 ExBaallAction.prototype.play = function(user, type, values, force) {
-  
-  if(type === 'Baall' && values.length === 1) {
+ 
+  if(force === true) {
+    if(value > this.min && value < this.max) {
+      Action.prototype.play.call(this, user, type, values, force);
+    }
+  } 
+  else if(type === 'Baall' && values.length === 1) {
 
     var value = values[0];
 

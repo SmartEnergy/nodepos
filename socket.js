@@ -69,6 +69,15 @@ module.exports.configureSocket = function(app) {
 
     });
 
+    socket.on('execAction', function(name, category, values) {
+      var action = app.actions.get(name);
+
+      if(action) {
+        action.play(null, category, values, true);
+      }
+
+    });
+
   });
 };
 
