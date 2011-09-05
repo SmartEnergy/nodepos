@@ -55,10 +55,12 @@ RegionStore.prototype.push = function(region, callback) {
     switch(region.type) {
       case 'rectangle':
         var rec = new Rectangle(region.name, region.posX, region.posY, region.width, region.height);
+        rec.displayName = region.displayName;
         Store.prototype.push.call(this, rec, callback);
         break;
       case 'polygon':
         var poly = new Polygon(region.name, region.points);
+        poly.displayName = region.displayName;
         Store.prototype.push.call(this, poly, callback);
         break;
       default:
