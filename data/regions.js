@@ -84,7 +84,9 @@ RegionStore.prototype.update = function(key, region, cb) {
   RegionStore.prototype.get.call(this, key, function(err, item) {
     
     item.update(new_region);
-  
+    
+    item.displayName = region.displayName;
+
     self.emit('update', item.key, item);
     
     if(cb) cb(null, 'update', item);
