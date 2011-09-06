@@ -91,7 +91,17 @@ Command.prototype.isComplied = function(user) {
         }
         break;
       case 'Gestures':
-        if(user.gesture != condition.name) { 
+
+        if(condition.name === 'Combi') {
+          if(condition.values.length === 1) {
+            if(user.gesture != condition.values[0]) {
+              return false;
+            }
+          } else {
+           return false;
+          }
+        }
+        else if(user.gesture != condition.name) { 
           return false;
         }
         break;

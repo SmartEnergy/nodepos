@@ -18,7 +18,7 @@ store.push(poly1);
 
 var com1 = new Command('test', [{ name: 'userAlreadyIn', category: 'Regions', type: 'region', values: ['testregion'] }], [], store, actionStore);
 var com2 = new Command('test2', [{ name: 'userAlreadyIn', category: 'Regions', type: 'region', empty: false, values: ['testregion'] }, { name: 'click', category: 'Gestures', type: 'gesture'}], [], store, actionStore);
-
+var com4 = new Command('test3', [ { name: 'Combi', category: 'Gestures', type: 'gesture', values: ['Click,Click']}] , [], store, actionStore);
 
 var user1 = {  
   id: 'testuser1', 
@@ -66,6 +66,26 @@ module.exports = {
   'com2 should complied': function() {
       var isComplied = com2.isComplied(user2);
       assert.equal(true, isComplied);
+  },
+  'com4 should complied':  function() {
+    var user = {
+      id: 'testuser4', 
+      time: Number(new Date)/1000, 
+      position: { x: 10, y: 10, z: 0}, 
+      gesture: 'Click,Click' 
+    }
+    var isComplied = com4.isComplied(user);
+    assert.equal(true, isComplied);
+  }, 
+  'com4 should not complied':  function() {
+    var user = {
+      id: 'testuser4', 
+      time: Number(new Date)/1000, 
+      position: { x: 10, y: 10, z: 0}, 
+      gesture: 'Swype,Click' 
+    }
+    var isComplied = com4.isComplied(user);
+    assert.equal(false, isComplied);
   }, 
   'com1 should execute':  function() {
     com1.exec(user1, function(result) {
