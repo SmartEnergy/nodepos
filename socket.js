@@ -27,7 +27,25 @@ module.exports.configureSocket = function(app) {
     socket.on('newRegion', function(region) {
 
       if(app.regions.isValid(region)){
-        app.regions.push(region);      
+
+        app.regions.push(region, function (err, method, region) {
+
+          if(err) return;
+
+          if(method === 'new') {
+            /**
+             * broadcast socket on enter and leave
+             */
+            region.addListener('userIn', function(user) {
+              socket.broadcast.emit('userInRegion', this.name, user);  
+            });
+            
+            region.addListener('userOut', function(user) {
+              socket.broadcast.emit('userOutRegion', this.name, user);  
+            });
+
+          }
+        });
         socket.broadcast.emit('newRegion', region);  
       }
 

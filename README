@@ -2,21 +2,14 @@
 #
 # INSTALL
 #
-#   Install nodejs (v0.5.4) and npm:
+#   Install nodejs (v0.4.12) and npm:
 #
 #     https://github.com/joyent/node/wiki/Installation 
-#   
+# 
 #   Install libs:
 #
-#     npm install express
-#     npm install expresso
-#     npm install socket.io
-#     npm install async
+#     npm install  
 #   
-#   Build
-#     
-#     node-waf configure build
-#
 # USAGE
 #
 #   node app.js

@@ -1,0 +1,12 @@
+{
+    "name": "KinectServer"
+  , "version": "0.3.0"
+  , "private": true
+  , "dependencies": {
+      "express": "2.4.6"
+    , "expresso": ">= 0.8.1"
+    , "ejs": ">= 0.4.3"
+    , "socket.io": ">= 0.8.4"
+    , "async": ">= 0.1.10"
+  }
+}
