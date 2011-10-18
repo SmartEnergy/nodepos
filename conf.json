@@ -1,4 +1,5 @@
 {
-  "persist": false,
-  "viewpath": "../../../webapp/smartwebapp",
+  "persist": true,
+  "sviewpath": "../../../webapp/smartwebapp",
+  "viewpath": "/home/andree/code/svn-repos/smarte/groups/kinect/src/webapp/smartwebapp/"
 }
