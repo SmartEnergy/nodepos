@@ -64,11 +64,11 @@ RegionStore.prototype.push = function(region, callback) {
         Store.prototype.push.call(this, poly, callback);
         break;
       default:
-        callback(true, null, null);
+        if(callback) callback(true, null, null);
         break;
     }
   } else {
-    callback(true, null, null);
+    if(callback) callback(true, null, null);
   }
 
 };
@@ -87,7 +87,7 @@ RegionStore.prototype.update = function(key, region, cb) {
     
     item.displayName = region.displayName;
 
-    self.emit('update', item.key, item);
+    self.emit('update', key, item);
     
     if(cb) cb(null, 'update', item);
 

@@ -6,7 +6,9 @@ var express = require('express'),
     CommandStore = require('./data/commands').CommandStore,
     Baall = require('./actions/baall').Baall,
     socket = require('./socket'),
-    util = require('util');
+    persist = require('./persist'),
+    util = require('util'),
+    fs = require('fs');
 
 // create server
 var app = module.exports = express.createServer();
@@ -26,6 +28,21 @@ region.configureApp(app);
 
 // load Baall actions
 Baall(app.actions);
+
+/** 
+ * Read config file
+ */
+fs.readFile('conf.json', encoding='utf8', function(err, results){
+  if(err === null) {
+    var conf = JSON.parse(results);
+    if(conf.persist === true) {
+    
+      // persisting
+      persist.configurePersist(app);
+
+    }
+  }
+});
 
 /**
  * On new/update user check regions

@@ -8,7 +8,14 @@
 # 
 #   Install libs:
 #
-#     npm install  
+#     npm install 
+#
+# CONFIG
+#   
+#   For persisting you need a redis-server: http://redis.io 
+#
+#   Start a redis server and set persist in conf.json
+#   Editing connection details see persist.js ;-)
 #   
 # USAGE
 #
