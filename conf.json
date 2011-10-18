@@ -1,3 +1,4 @@
 {
-  "persist": false
+  "persist": false,
+  "viewpath": "../../../webapp/smartwebapp",
 }

@@ -16,7 +16,6 @@ var app = module.exports = express.createServer();
 // server configuration
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-
 // command store
 var commandStore = app.commands = new CommandStore();
 var actionStore = app.actions = app.commands.actions;
@@ -41,6 +40,18 @@ fs.readFile('conf.json', encoding='utf8', function(err, results){
       persist.configurePersist(app);
 
     }
+    
+    // viewpath
+    fs.stat(conf.viewpath, function(err, stat) {
+      if(err) {
+        console.log('Error on selecting viewpath');
+      } else if(stat) {
+        console.log('Defining gui path..');
+        app.use(express.static(conf.viewpath));
+      } else {
+        console.log('ladia');
+      }
+    });
   }
 });
 

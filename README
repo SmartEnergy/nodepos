@@ -16,7 +16,11 @@
 #
 #   Start a redis server and set persist in conf.json
 #   Editing connection details see persist.js ;-)
-#   
+#  
+#   WebApp: 
+#     
+#     - edit viewpath in conf.json
+#       - default is relativ path in svn repo. 
 # USAGE
 #
 #   node app.js
