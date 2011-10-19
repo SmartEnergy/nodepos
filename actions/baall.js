@@ -30,7 +30,11 @@ var devices = [
   'kitchenRightCupboard',
   'bedroomRightBedHead',
   'bedroomRightBedFoot',
-  'bathroomWashBasin', 
+  'bathroomWashBasin',
+  'microwaveBoard', 
+  'kitchenet',
+  'cupboard',
+  'basin' 
 ]
 
 /**

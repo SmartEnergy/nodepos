@@ -1,4 +1,5 @@
 var events = require('events'),
+    http = require('http'),
     util   = require('util');
 
 /* 
@@ -42,13 +43,19 @@ Action.prototype.checkLastExec = function(user) {
 
 
 Action.prototype.play = function(user, type, values, force) {
-  
-  if(this.checkLastExec() === true || force === true) {
-  
+ 
+  if(force === true) {
+    this.last_execute = new Number(new Date());
+    this.emit('play', user);
+    this.handler(values);
+
+  } else if(true || force === true) {
     this.last_execute = new Number(new Date());
     this.last_user = user;
 
     this.emit('play', user);
+  
+    this.handler();
   
   } else {
   
@@ -66,13 +73,13 @@ exports.Action = Action;
  */
 function BaallAction (name) {
   
-  Action.call(this, name, handler);
+  Action.call(this, name);
 
   this.value = null;
 
-  var handler = function ballrequest() {
+  this.handler = function ballrequest() {
     if(this.value != null) {
-      
+      console.log(this.value);      
       // TODO use socket
       var client = http.createClient(80, 'baall-server.informatik.uni-bremen.de');
 
@@ -98,9 +105,8 @@ exports.BaallAction = BaallAction;
  * play method
  */
 BaallAction.prototype.play = function(user, type, values, force) {
-  
   if(type === 'Baall' && values.length === 1) {
-
+    
     var value = values[0];
 
     if(value === 'On') {
@@ -110,7 +116,7 @@ BaallAction.prototype.play = function(user, type, values, force) {
       this.value = 0;
     } 
     else {
-      return false;
+      this.value = value;
     }
   
     Action.prototype.play.call(this, user, type, values, force);

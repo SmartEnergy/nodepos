@@ -1,4 +1,5 @@
-var Action = require('./models/action').Action;
+var Action = require('./models/action').Action,
+    util = require('util');
 
 module.exports.configureSocket = function(app) {
 
@@ -8,7 +9,7 @@ module.exports.configureSocket = function(app) {
     defineUserMsgs(app, socket);
     defineKinectMsgs(app, socket);
 
-    definePushUiMsgs(app, socket);
+    definePushUiMsgs(app, io.sockets);
 
     defineGetMessages(app, socket);
    
@@ -37,11 +38,23 @@ module.exports.configureSocket = function(app) {
              * broadcast socket on enter and leave
              */
             region.addListener('userIn', function(user) {
-              socket.broadcast.emit('userInRegion', this.name, user);  
+	      			var jsonUser = { 
+								position: user.position,
+								id: user.id,
+  							time: user.time,
+  							gesture: user.gesture
+						  };
+              socket.broadcast.emit('userInRegion', this.name, jsonUser);  
             });
             
             region.addListener('userOut', function(user) {
-              socket.broadcast.emit('userOutRegion', this.name, user);  
+	      			var jsonUser = { 
+								position: user.position,
+								id: user.id,
+  							time: user.time,
+  							gesture: user.gesture
+						  };
+              socket.broadcast.emit('userOutRegion', this.name, jsonUser);  
             });
 
           }
@@ -87,11 +100,12 @@ module.exports.configureSocket = function(app) {
 
     });
 
-    socket.on('execAction', function(name, category, values) {
-      var action = app.actions.get(name);
-
+    socket.on('execAction', function(values) {
+      console.log(values.name);
+      var action = app.actions.items[values.name];
+      console.log(action);
       if(action) {
-        action.play(null, category, values, true);
+        action.play(null, values.category, values.values, true);
       }
 
     });
@@ -161,6 +175,8 @@ function defineKinectMsgs (app, socket) {
  */
 function definePushUiMsgs(app, socket) {
   var pushUi = new Action('pushUi', function(value) {
+    console.log('************************ PUSHUUUI');
+    console.log(value);
     socket.emit('pushUi', value);  
   });
 
