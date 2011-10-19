@@ -4,6 +4,7 @@ var Action = require('./models/action').Action,
 module.exports.configureSocket = function(app) {
 
   var io = require('socket.io').listen(app);
+io.set('log level', 1)
   io.sockets.on('connection', function(socket) {
   
     defineUserMsgs(app, socket);

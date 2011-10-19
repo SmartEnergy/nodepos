@@ -1,21 +1,21 @@
 var events = require('events'),
-    http = require('http'),
-    util   = require('util');
+  http = require('http'),
+  util   = require('util');
 
 /* 
- * Action executes an interaction with baall or digitalStrom
- */
+* Action executes an interaction with baall or digitalStrom
+*/
 function Action (name, handler) {
 
-  events.EventEmitter.call(this);
+events.EventEmitter.call(this);
 
-  this.name = name;
-  this.handler = handler;
+this.name = name;
+this.handler = handler;
 
-  // save last time this action was executed
-  // and user.
-  this.last_execute = null;
-  this.last_user  = null;
+// save last time this action was executed
+// and user.
+this.last_execute = null;
+this.last_user  = null;
 
 };
 
@@ -23,9 +23,9 @@ function Action (name, handler) {
 util.inherits(Action, events.EventEmitter);
 Action.super_ = events.EventEmitter;
 Action.prototype = Object.create(events.EventEmitter.prototype, {
-	constructor: {
-		value: Action,
-		enumerable: false
+constructor: {
+  value: Action,
+  enumerable: false
 	}		
 });
 
@@ -79,7 +79,6 @@ function BaallAction (name) {
 
   this.handler = function ballrequest() {
     if(this.value != null) {
-      console.log(this.value);      
       // TODO use socket
       var client = http.createClient(80, 'baall-server.informatik.uni-bremen.de');
 
@@ -108,7 +107,6 @@ BaallAction.prototype.play = function(user, type, values, force) {
   if(type === 'Baall' && values.length === 1) {
     
     var value = values[0];
-
     if(value === 'On') {
       this.value = 1;
     }

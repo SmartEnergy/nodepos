@@ -21,7 +21,7 @@ function Command(name, conditions, actions, regionStore, actionStore) {
         
         function addExecListener (user) {
           actions.forEach(function(val, index, array) {
-            actionStore.items[val.name].play(user, val.category, val.values);
+            actionStore.items[val.name].play(user, val.category, val.values, true);
           });
 
         }
@@ -35,6 +35,9 @@ function Command(name, conditions, actions, regionStore, actionStore) {
           condition.regionCb = addExecListener;
         }
 
+        
+        break;
+      case 'Other':
         
         break;
       default:
