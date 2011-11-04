@@ -108,11 +108,16 @@ Command.prototype.isComplied = function(user) {
           return false;
         }
         break;
-      // TODO
-      /*
       case 'time':
+        var current = (new Date()).getTime();
+        var start = (new Date(condition.values[0])).getTime();
+        var end = (new Date(condition.values[1])).getTime();
+
+        if(current >= start && current <= end) {
+          return true;
+        }
+        return false;
         break;
-      */
       default:
         return false;
         break;
