@@ -128,10 +128,10 @@ Rectangle.prototype.isUserIn = function(user) {
 	var userpos = user.position;
   
   var isInXPos    = userpos.x >= self.posX;
-  var isInXWidth  = userpos.x <= (self.posX+self.width); 
+  var isInXWidth  = userpos.x <= (self.posX-self.width); 
   
   var isInYPos    = userpos.y >= self.posY;
-  var isInYHeight = userpos.y <= (self.posY+self.height); 
+  var isInYHeight = userpos.y <= (self.posY-self.height); 
 
   if( isInXPos && isInXWidth && isInYPos && isInYHeight ) {
     return true;
