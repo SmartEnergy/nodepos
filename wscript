@@ -13,5 +13,5 @@ def configure(conf):
 def build(bld):
   obj = bld.new_task_gen('cxx', 'shlib', 'node_addon')
   obj.target = 'dsscurl'
-  obj.source = './src/interactions/dsscurl.cc'
+  obj.source = './actions/dsscurl.cc'
   obj.uselib = 'Curl'

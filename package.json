@@ -1,29 +1,15 @@
 {
-  "name": "nodePos",
-  "description": "http server for user positions in a room",
-  "version": "0.2",
-  "homepage": "https://smartenergy.uni-bremen.de",
-  "repository": {
-    "url": ""
-  },
-  "author": "Andree <andreek@tzi.de>",
-  "main": "server.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "dependencies": {
-    "sax": ">=0.1.2",
-    "async": ">=0.1.6",
-    "vows": ">=0.5.8",
-    "socket.io": ">=0.6.16"
-  },
-  "scripts": {
-    "test": "vows src/tests/* --spec",
-    "preinstall": "node-waf clean || true; node-waf configure build",
-    "start": "node server.js"
-  },
-  "engines": {
-    "node": ">=0.4.7"
-  },
-  "devDependencies": {}
+    "name": "KinectServer"
+  , "version": "0.3.0"
+  , "private": true
+  , "dependencies": {
+      "express": ">= 2.4.6"
+    , "expresso": ">= 0.8.1"
+    , "ejs": ">= 0.4.3"
+    , "socket.io": ">= 0.8.4"
+    , "async": ">= 0.1.10"
+    , "hiredis": ">= 0.1.12"
+    , "redis": ">= 0.6.7"
+    , "winston": ">= 0.5.5"
+  }
 }

@@ -1,1 +1,4 @@
-{"name":"testscene","ip":"localhost","port":8000,"bg_image":"img/baall_karte.png","roomlength":10605,"roomdepth":5850,"baall":false,"dss":false,"regions":[]}
+{
+  "persist": false,
+  "viewpath": "../../../webapp/smartwebapp" 
+}

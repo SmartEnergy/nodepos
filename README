@@ -1,30 +1,31 @@
 # AUTHOR: andree <andreek@tzi.de>
 #
-# Http server based on nodejs for user positions in a room
+# INSTALL
 #
-# Updated at 04/26/11
+#   Install nodejs (v0.4.12) and npm:
 #
-# Install
+#     https://github.com/joyent/node/wiki/Installation 
+# 
+#   Install libs:
 #
-#	Install nodejs and npm: https://github.com/joyent/node/wiki/Installation
+#     npm install 
 #
-#	Install required node libs:
-#		
-#		npm install
+# CONFIG
+#   
+#   For persisting you need a redis-server: http://redis.io 
 #
-#	This creates a 'node_modules' folder with all required libs.
+#   Start a redis server and set persist in conf.json
+#   Editing connection details see persist.js ;-)
+#  
+#   WebApp: 
+#     
+#     - edit viewpath in conf.json
+#       - default is relativ path in svn repo. 
+# USAGE
 #
-#	See 'packages.json' dependencies
+#   node app.js
 #
-#	Build modules:
+# TESTS
 #
-#	  node-waf configure build
+#   ./node_modules/expresso/bin/expresso tests/units/models/* tests/units/* tests/integrations/* 
 #
-# Tests
-# 	Just run:
-#
-# 		npm test
-#
-#	Start server: 
-#
-#		node server.js conf.json
