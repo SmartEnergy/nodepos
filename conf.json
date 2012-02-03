@@ -1,4 +1,4 @@
 {
   "persist": false,
-  "viewpath": "../../../webapp/smartwebapp" 
+  "viewpath": "../../webapp/smartwebapp" 
 }
