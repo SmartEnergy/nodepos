@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+var app = require('../');
+
+// listen on port 8000
+app.listen(app.set('port'));
+app.logger.info('Express server listening on port ' +app.address().port +', environment: '
+                + app.settings.env);

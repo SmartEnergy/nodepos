@@ -1,0 +1,13 @@
+2012.XX.XX, Version 0.4 (unstable)
+	* Notify WLAN Server with persition data
+
+	* Windows support (package.json.win for npm)
+
+	* Deploy script
+
+	* Makefile 
+
+2012.02.03, Version 0.3 (stable)
+	* Persist with redis
+
+	* Configuration file
