@@ -80,6 +80,8 @@ describe('Store', function() {
   }),
   it('toJson', function(done) {
     store.toJson(function(err, result) {
+      console.log(err);
+      console.log(result);
       assert.equal(null, err);
       assert.equal(2, JSON.parse(result).size)
       done();

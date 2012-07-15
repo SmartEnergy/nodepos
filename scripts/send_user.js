@@ -8,7 +8,7 @@
 var fs = require('fs'),
     http = require('http');
 
-var HOST = 'localhost';
+var HOST = '127.0.0.1';
 var PORT = 8000;
 var CSVFILE = 'scripts/kinect_users.csv';
 
@@ -35,25 +35,22 @@ function sendUsers (users) {
       var user = users[i];
       user.time = Number(new Date())/1000;
       user.gesture = '';
-
+      console.log('user---time  ' +user.time);
       var reqStr = JSON.stringify({ users: [user] });
 
       var req = http.request(options, function(res) {
         res.setEncoding('utf8');
         res.on('data', function (chunk) {
-          console.log('BODY: ' + chunk);
         });
       });
 
       req.on('error', function(e) {
-          console.log('problem with request: ' + e.message);
       });
 
       req.write(reqStr);
       req.end();
 
       i++;    
-      console.log('SEND USER');
     } else {
       process.exit();
     }

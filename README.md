@@ -18,7 +18,7 @@ guide" )
 
 #### GNU/Linux and other UNIX
 ```
-npm install || npm install -g
+npm install
 ```
 
 If you used option `-g` please change the directory to your node_modules root dir of
@@ -43,7 +43,7 @@ make test
 
 ### GNU/Linux and other UNIX
 ```
-nodepos
+./bin/nodepos
 ```
 ### Windows
 ```

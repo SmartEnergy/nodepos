@@ -42,6 +42,7 @@ describe('Action', function(){
         assert.notEqual(this.last_execute, null);
         assert.equal(this.last_user, play_user);
         done();
+        action.removeAllListeners();
       });
 
       action.last_execute = null; 

@@ -1,14 +1,14 @@
 deploy:
-	python scripts/deploy.py
+	@./scripts/deploy.py
 
 readme:
-	markdown README.mkd > README.html | cat
+	@markdown README.md > README.html
 
 test:
-	mocha -t 3200
+	@NODE_ENV=test mocha -t 3200 
 
 config:
-	echo '{ "port": 8000, "persist": false, "viewpath": "../../../webapp/smartwebapp", "wlanNotify": true, "wlanInterv": 1000, "wlanHost": "http://baall-server-2.informatik.uni-bremen.de", "wlanPort": 8080, "wlanPath": "/setPosition" }' > conf.json
+	@echo '{ "port": 8000, "persist": false, "viewpath": "../../../webapp/smartwebapp", "wlanNotify": true, "wlanInterv": 1000, "wlanHost": "http://baall-server-2.informatik.uni-bremen.de", "wlanPort": 8080, "wlanPath": "/setPosition", "kinectpath": "./test/stubs/child_stub.py" }' > conf.json
 
 clean:
 	rm -rf node_modules README.html conf.json

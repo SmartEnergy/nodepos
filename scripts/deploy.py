@@ -22,7 +22,7 @@ import sys
 import time
 
 SVN_URL = "https://nyx.informatik.uni-bremen.de/svn/SmartEnergy/groups/kinect/"\
-        + "src/server/branches/0.4"
+        + "src/server/branches/0.4.1"
 
 SSH_HOST = "baall-server-2.informatik.uni-bremen.de"
 SSH_USER = "smartenergy"
@@ -102,7 +102,7 @@ def upgrade():
 
     print "[INFO] Stop server"
     # stop server
-    exec_command(ssh, "source ~/.bash_profile && forever stop 0")
+    exec_command(ssh, "forever stop 0")
 
     print "[INFO] Update current symbolic link"
     # update current symbolic link
@@ -115,20 +115,19 @@ def upgrade():
     
     print "[INFO] Install depended nodejs modules. This can take some minutes!"
     # npm install
-    exec_command(ssh, "source ~/.bash_profile && cd "+CURRENT_PATH
-                    +   "&& npm install")
+    exec_command(ssh, "cd "+CURRENT_PATH+" && npm install")
     
     print "[INFO] Start server"
     # start server
-    exec_command(ssh, "source ~/.bash_profile && cd "+CURRENT_PATH
-                    +   "&& forever start "+CURRENT_PATH+"/app.js")
+    exec_command(ssh, "cd "+CURRENT_PATH + " && forever start "
+                                         +  CURRENT_PATH+"/bin/iyweb")
 
     ssh.close()
 
 def exec_command(ssh, cmd):
     """ default ssh command handler """
     try:
-        stdin, stdout, stderr = ssh.exec_command(cmd)
+        stdin, stdout, stderr = ssh.exec_command("source ~/.bash_profile && " + cmd)
         
         error_data = stderr.read().splitlines()
         
@@ -154,12 +153,18 @@ def main():
     """ main function """
 
     print "="*80+"\n"
+    
+    test_result = os.system("make test")
+    
+    if(test_result == 0):
 
-    checkout(SVN_URL, TMP_CO_PATH)
+        checkout(SVN_URL, TMP_CO_PATH)
 
-    upgrade()
+        upgrade()
 
-    housekeeping()
+        housekeeping()
+    else:
+        print "[ERROR] Test failed"
 
     print "\n"+"="*80
 

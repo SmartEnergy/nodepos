@@ -1,7 +1,7 @@
 {
     "name": "nodepos"
   , "description": "simple position tracking for persons"
-  , "version": "0.4.0"
+  , "version": "0.4.1"
   , "private": true
   , "author": "Andree Klattenhoff andreek@tzi.de"
   , "contributors": [ 

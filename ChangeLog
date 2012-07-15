@@ -1,4 +1,9 @@
-2012.04.13, Version 0.4 (stable)
+2012.07.14, Version 0.4.1 (stable)
+	* Toggle KinectController via http
+
+	* TCP api for kinectController
+
+2012.04.13, Version 0.4
 	* Notify WLAN Server with persition data
 
 	* Windows support
