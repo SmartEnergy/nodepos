@@ -1,7 +1,6 @@
-var help = require('./support/http'),
+var help = require('../support/http'),
     assert = require('assert'),
-    app = require('../');
-
+    app = require('../../');
 var req = new help(app);
 
 describe('Kinect Controller', function() {

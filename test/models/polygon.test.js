@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    Polygon = require('../lib/models/regions').Polygon;
+    Polygon = require('../../lib/models/regions').Polygon;
 
 /**
  * Fixtures

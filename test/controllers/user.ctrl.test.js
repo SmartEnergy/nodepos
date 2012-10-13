@@ -1,5 +1,5 @@
-var help = require('./support/http'),
-    app = require('../');
+var help = require('../support/http'),
+    app = require('../../');
 
 var req = new help(app);
 
@@ -20,7 +20,44 @@ describe('User Controller', function() {
       var time = Number(new Date())/1000;
       var data = {
         size: 1,
-        users: [{ id: 1, position: { x: 20, y: 20, z: 0 }, time: time, gesture: '', joints: []}]
+        users: [{ 
+          id: 1, 
+          position: { x: 20, y: 20, z: 0 }, 
+          time: time, 
+          gesture: '',         
+          joints: [
+            {
+              type: 1,
+              x: 0,
+              y: 0,
+              z: 60
+            },
+            {
+              type: 2,
+              x: 0,
+              y: 0,
+              z: 60
+            },
+            {
+              type: 4,
+              x: 0,
+              y: 0,
+              z: 60
+            },
+            {
+              type: 24,
+              x: 0,
+              y: 0,
+              z: 60
+            },
+            {
+              type: 20,
+              x: 0,
+              y: 0,
+              z: 60
+            }
+          ]
+        }]
       };
       req.write(JSON.stringify(data))
       req.except('{"success":true}', function() {

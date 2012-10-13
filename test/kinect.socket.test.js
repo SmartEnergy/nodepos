@@ -1,7 +1,7 @@
 var net = require('net'),
     app = require('../'),
     assert = require('assert');
-
+/*
 function request(client, object, cmd, data) {
   var request = {
     object: object,
@@ -221,4 +221,4 @@ describe('Kinect Controller', function() {
 
   });
 });
-
+*/

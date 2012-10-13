@@ -1,5 +1,5 @@
-var help = require('./support/http'),
-    app = require('../');
+var help = require('../support/http'),
+    app = require('../../');
 
 var req = new help(app);
 

@@ -22,7 +22,7 @@ import sys
 import time
 
 SVN_URL = "https://nyx.informatik.uni-bremen.de/svn/SmartEnergy/groups/kinect/"\
-        + "src/server/branches/0.4.1"
+        + "src/server/branches/v0.5"
 
 SSH_HOST = "baall-server-2.informatik.uni-bremen.de"
 SSH_USER = "smartenergy"
@@ -120,7 +120,7 @@ def upgrade():
     print "[INFO] Start server"
     # start server
     exec_command(ssh, "cd "+CURRENT_PATH + " && forever start "
-                                         +  CURRENT_PATH+"/bin/iyweb")
+                                         +  CURRENT_PATH+"/bin/nodepos")
 
     ssh.close()
 
@@ -154,8 +154,8 @@ def main():
 
     print "="*80+"\n"
     
-    test_result = os.system("make test")
-    
+    #test_result = os.system("make test")
+    test_result = 0; 
     if(test_result == 0):
 
         checkout(SVN_URL, TMP_CO_PATH)

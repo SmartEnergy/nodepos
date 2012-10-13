@@ -1,8 +1,8 @@
 var assert = require('assert'),
-    Polygon = require('../lib/models/regions').Polygon,
-    RegionStore = require('../lib/data/regions.store').RegionStore,
-    Store = require('../lib/data/store').Store,
-    Command = require('../lib/models/command').Command,
+    Polygon = require('../../lib/models/regions').Polygon,
+    RegionStore = require('../../lib/data/regions.store').RegionStore,
+    Store = require('../../lib/data/store').Store,
+    Command = require('../../lib/models/command').Command,
     util  = require('util');
 
 /**

@@ -5,7 +5,7 @@
  *                using the mochajs framework
  */
 var assert = require('assert'),
-    Rectangle = require('../lib/models/regions').Rectangle;
+    Rectangle = require('../../lib/models/regions').Rectangle;
 
 var rectangle = new Rectangle('rec1', 0, 0, 100, 100);
 

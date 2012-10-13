@@ -1,8 +1,8 @@
-var help = require('./support/http'),
-    Command = require('../lib/models/command').Command,
-    RegionStore = require('../lib/data/regions.store').RegionStore,
-    Store = require('../lib/data/store').Store,
-    app = require('../');
+var help = require('../support/http'),
+    Command = require('../../lib/models/command').Command,
+    RegionStore = require('../../lib/data/regions.store').RegionStore,
+    Store = require('../../lib/data/store').Store,
+    app = require('../../');
 
 var req = new help(app);
 

@@ -15,7 +15,7 @@
     , "hiredis": "0.1.x"
     , "redis": "0.6.x"
     , "winston": "0.5.x"
-    , "jsontoxml": "0.0.x"
+    , "eibd": "0.x.x"
   }
   , "devDependencies": {
       "mocha": "*"

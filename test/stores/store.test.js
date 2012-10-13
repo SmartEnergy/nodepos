@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    Store = require('../lib/data/store').Store;
+    Store = require('../../lib/data/store').Store;
 
 /**
  * Some fixtures

@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    RegionStore = require('../lib/data/regions.store').RegionStore;
+    RegionStore = require('../../lib/data/regions.store').RegionStore;
 
 var store = new RegionStore();
 

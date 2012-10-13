@@ -1,6 +1,6 @@
 var assert = require('assert'),
-    BaallAction = require('../lib/models/action').BaallAction,
-    Action = require('../lib/models/action').Action;
+    BaallAction = require('../../lib/models/action').BaallAction,
+    Action = require('../../lib/models/action').Action;
 
 var action = new Action('test', function() {});
 

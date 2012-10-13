@@ -1,7 +1,7 @@
 var assert = require('assert'),
-    RegionStore = require('../lib/data/regions.store').RegionStore,
-    Store = require('../lib/data/store').Store,
-    CommandStore = require('../lib/data/command.store').CommandStore;
+    RegionStore = require('../../lib/data/regions.store').RegionStore,
+    Store = require('../../lib/data/store').Store,
+    CommandStore = require('../../lib/data/command.store').CommandStore;
 
 var store = new CommandStore();
 var com1 = {
