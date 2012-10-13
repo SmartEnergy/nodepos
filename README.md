@@ -28,7 +28,7 @@ API Documentation
 Installation
 ------------
 
-### Install nodejs (v0.6.11)
+### Install nodejs
 
 [Official nodeJS website](http://www.nodejs.org "Official nodeJS Website")
 
