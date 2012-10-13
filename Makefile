@@ -8,7 +8,7 @@ test:
 	@NODE_ENV=test ./scripts/test.py 
 
 config:
-	@echo '{ "port": 8000, "persist": false, "viewpath": "./webapp/", "knxHost": "http://baall-server-2.informatik.uni-bremen.de", "kinectpath": "./test/stubs/child_stub.py" }' > conf.json
+	@echo '{ "port": 8000, "persist": false, "viewpath": "./webapp/", "knxHost": "localhost", "kinectpath": "./test/stubs/child_stub.py" }' > conf.json
 
 clean:
 	rm -rf node_modules README.html conf.json
