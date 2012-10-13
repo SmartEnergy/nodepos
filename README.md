@@ -23,7 +23,7 @@ Features
 API Documentation
 -----------------
 
-* [HTTP API](http/index.md)
+* [HTTP API](https://github.com/SmartEnergy/nodepos/tree/master/doc/http/index.md)
 
 Installation
 ------------
